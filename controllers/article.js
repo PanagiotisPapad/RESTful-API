@@ -15,6 +15,27 @@ exports.getAll = (req, res) => {
     });
 };
 
+//Get a specific article by ID
+exports.getOne = (req, res) => {
+    const id = req.params.articleId
+    Article.findById(id)
+        .exec()
+        .then(doc => {
+           if (!doc) {
+            res.status(404).json({
+                message: "Article not found with id: " + id
+            })
+           } 
+           res.status(200).json(doc) 
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                message: "Invalid id given " + id + ". Please provide a valid article id."
+            })
+        })
+}
+
 //Create article endpoint
 exports.create = (req, res) => {
     const article = new Article ({
@@ -31,7 +52,7 @@ exports.create = (req, res) => {
         .catch(err => console.log(err));
 };
 
-//Delete article endpoint
+//Delete an article by ID
 exports.delete = (req, res) => {
     const id = req.params.articleId
     Article.findOneAndRemove({ _id: id })
