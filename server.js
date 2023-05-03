@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const eventsRouter = require("../BookIT/api/routes/eventRouter");
 const articlesRouter = require("./routes/articleRouter");
 
 mongoose
